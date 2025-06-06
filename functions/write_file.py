@@ -10,8 +10,11 @@ def write_file(working_directory, file_path, content):
             return f'Error: File is not a regular file: "{file_path}"'
     path = os.path.dirname(full_path)
     os.makedirs(path, exist_ok=True)
-    with open(full_path, "w") as f:
-        f.write(content)
+    try:
+        with open(full_path, "w") as f:
+            f.write(content)
     
-    return f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
+        return f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
+    except Exception as e:
+        return f"Error: writing to file: {e}"
         
