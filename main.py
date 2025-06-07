@@ -3,6 +3,7 @@ import sys
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from config import system_prompt, model_name
 
 
 load_dotenv()
@@ -27,7 +28,9 @@ def main():
 def generate_content(client, messages, verbose):
     try:
         response = client.models.generate_content(
-            model='gemini-2.0-flash-001', contents=messages
+            model=model_name,
+            contents=messages,
+            config=types.GenerateContentConfig(system_instruction=system_prompt),
         )
     except Exception as err:
         print(f"Error encountered: {err}")    
